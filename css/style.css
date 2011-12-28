@@ -1,0 +1,42 @@
+body{
+	background-color: #FFFFFF;
+}
+.trainTable{
+	border-spacing:50;		
+}
+.trainTable td{
+	text-align:center;
+	background: #e7f0ff;
+	width: 4em;	
+}
+.trainTable td.modify{
+	text-align:center;
+	background: #e7f0ff;
+	width: 5em;	
+}
+.trainTable td input{
+	width:5em;
+	text-align:center;
+}
+.dutyTable td{
+	text-align:center;
+	background: #e7f0ff;
+}
+.dutyTable td input{
+	width:5em;
+	text-align:center;
+}
+.nav{
+	font-size:18px;
+	background: #e7f0ff;
+	padding:8px;
+	padding-left:300px;
+	padding-right:300px;
+	margin-bottom:20px;
+}
+.tt{
+}
+body div{
+	margin:20px;
+}
+

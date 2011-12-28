@@ -1,0 +1,19 @@
+Options -Indexes
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} image/labcamera.jpg
+RewriteRule ^(.*)$ error.php [L]
+
+RewriteCond %{REQUEST_FILENAME} updateAllTraining.php
+RewriteRule ^(.*)$ error.php [L]
+
+RewriteCond %{REQUEST_FILENAME} grabOJData.php
+RewriteRule ^(.*)$ error.php [L]
+
+RewriteCond %{REQUEST_FILENAME} updateService.py
+RewriteRule ^(.*)$ error.php [L]
+
+RewriteCond %{REQUEST_FILENAME} log$
+RewriteRule ^(.*)$ error.php [L]
+
+RewriteCond %{REQUEST_FILENAME} conf.py
+RewriteRule ^(.*)$ error.php [L]
