@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/python2.6
 #coding=utf-8
 import sys
 import os
@@ -8,14 +8,15 @@ import MySQLdb
 import conf
 import time
 #打开日志文件
+logFile='';
 if len(sys.argv)==2:
 	logFile=open(sys.argv[1],'a')
-	logTmp=open("/tmp/updateServiceLog",'w+')
-	#sys.stdout=logTmp
-	#sys.stderr=logFile
 else:
-	print 'Usage:',sys.argv[0],'logFile'
-	exit()
+	logFile=open("logUpdateService",'a')
+logTmp=open("/tmp/updateServiceLog",'w+')
+
+sys.stdout=logTmp
+sys.stderr=logFile
 #数据库打开的初始化
 conn=MySQLdb.connect(host=conf.dbHost,user=conf.dbUser,passwd=conf.dbPasswd,db=conf.dbName)
 cursor=conn.cursor(MySQLdb.cursors.DictCursor)
@@ -65,7 +66,7 @@ while True:
 					ret=str(firstTask['process'].stdout.read())
 					#返回了结果,并且结果格式正确
 					if re.search(oj['retReg'],ret):
-						print "任务:username='"+str(firstTask['username'])+"' ojType='"+str(firstTask['ojType'])+"' id='"+str(firstTask['id'])+"' queryTime='"+str(firstTask['ojType'])+"' 在"+time.strftime('%Y-%m-%d %H:%M:%S')
+						print "任务:username='"+str(firstTask['username'])+"' ojType='"+str(firstTask['ojType'])+"' id='"+str(firstTask['id'])+"' queryTime='"+str(firstTask['queryTime'])+"' 在"+time.strftime('%Y-%m-%d %H:%M:%S')
 						print "查询成功"
 						firstTask['doneTime']=time.strftime('%Y-%m-%d %H:%M:%S')
 						firstTask['status']=7 #2 代表查询完毕
@@ -78,12 +79,17 @@ while True:
 							#如果得到了一个新值,则加入新training纪录
 							sql="insert into training(username,ojType,time,queryID,value) values('" + str(firstTask['username']) + "','" + str(firstTask['ojType']) + "','" + str(firstTask['doneTime']) + "','" + str(firstTask['id']) + "','" + str(ret) +"')";
 							cursor.execute(sql)
-							###这里应更新用户的syn值
+
 						#查询完成,修改任务状态,size=size-1
 						cursor.execute("update updateTaskList set doneTime='" + str(firstTask['doneTime']) + "',status=" + str(firstTask['status']) + " where ojType='" + str(firstTask['ojType']) + "' and id='" + str(firstTask['id']) + "' and queryTime='" + str(firstTask['queryTime']) + "' and username='" + str(firstTask['username']) + "'")
+						subprocess.Popen(["./updatesyn.php",firstTask['username']],stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=False)
 						oj['size']=oj['size']-1;
 					#这里的else表示返回了结果,但结果不正确,所以设置查询失败,重试查询
 					else:
+						#首先更新下syn	
+
+						subprocess.Popen(["./updatesyn.php",firstTask['username']],stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=False)
+
 						print "任务:username='"+str(firstTask['username'])+"' ojType='"+str(firstTask['ojType'])+"' id='"+str(firstTask['id'])+"' queryTime='"+str(firstTask['ojType'])+"' 在"+time.strftime('%Y-%m-%d %H:%M:%S')
 						print "返回了错误格式的结果",ret
 						#如果在容许失败次数内
@@ -103,7 +109,7 @@ while True:
 				#如果超时,杀掉任务,置失败次数,失败次数小于最大失败次数则重入
 				elif firstTask['lastQueryTime']+oj['maxTimeInterval']<=time.time():
 						print "任务:username='"+str(firstTask['username'])+"' ojType='"+str(firstTask['ojType'])+"' id='"+str(firstTask['id'])+"' queryTime='"+str(firstTask['ojType'])+"' 在"+time.strftime('%Y-%m-%d %H:%M:%S')
-						print "产生超时",ret
+						print "产生超时"
 						firstTask['process'].terminate()
 						firstTask['failTimes']=firstTask['failTimes']+1
 						print "当前失败次数",firstTask['failTimes']

@@ -51,7 +51,9 @@ if($groupInlist=0){
 #打开数据库以备查询
 $link=linkToDBAndSelectDB($db_name1);
 #如果是实验室用户第一次登录,则产生一条空的记录 /*
+
 if($_SESSION['islab']){
+	#以下检查training的完整性
 	$q="select * from RecentTrainingQuery where username='$euser'";
 	$currentUserStatus=mysql_query($q,$link) or die ('Cannot query RecentTrainingQuery');
 	if(mysql_num_rows($currentUserStatus)==0){
@@ -61,9 +63,17 @@ if($_SESSION['islab']){
 				$sql="insert into training(username,ojType,queryID,time,value) values ('$euser','syn','$euser','" . date(YmdHis) ."',0)" ;
 			}
 			$result=mysql_query($sql,$link) or die ('Cannot query training when init user trainig');
+
 		}
 	}
 	mysql_free_result($currentUserStatus);
+	#以下检查userIDOnOJ的完整性,主要是加入syn这个字段
+	$q="select * from userIDOnOJ where username='$euser' and ojType='syn'";
+	$result=mysql_query($q,$link) or die ('Cannot query userIDOnOJ');
+	if(mysql_num_rows($result)==0){
+		$sql="insert into userIDOnOJ(username,ojType,ojID) values('$euser','syn','$euser')";
+		mysql_query($sql,$link) or die('cannot query initialize syn id');
+	}
 }
 #以下根据提供的排序方式和分组方式,从数据库中取出内容并产生一个信息数组
 #1.选出所有最近做题信息,将这些信息,按用户名分组,
@@ -149,9 +159,9 @@ if($trainTable!=NULL){
 		foreach($ojList as $ojType){
 			$score=$u[$ojType]['value'];
 			if($ojType=='tc' || $ojType=='cf'){
-				$score=(String)( ((int)(($u[$ojType]['value']) /10000)) ) . '/' .  (String)((int)($u[$ojType]['value']))%1000;
+					$score=(String)( ((int)(($u[$ojType]['value']) /10000)) ) . '/' .  (String)((int)($u[$ojType]['value']))%1000;
 			}else if($ojType=='usaco'){
-				$score=(String)($u[$ojType]['value']/10);
+					$score=(String)($u[$ojType]['value']/10);
 			}
 			echo "<td title='$ojType 帐号: " . $u[$ojType]['queryID'] . " " .
 				"最后更新时间:" . $u[$ojType]['updateTime'] .
