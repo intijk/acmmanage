@@ -32,7 +32,7 @@ function getpkudata($userID){
 }
 function gethdudata($userID){
 	global $debug;
-	$P="/(Problems Solved<\/td><td.*?>)([0-9][0-9]*)(<\/td>)/i";
+	$P="/(Problems Solved<\/td><td.*?>\s*?)([0-9][0-9]*)(\s*?<\/td>)/i";
 	$res=getURLPattern($P,"http://acm.hdu.edu.cn/userstatus.php?user=$userID");
 	if($debug>0){
 		print_r($res[1]);

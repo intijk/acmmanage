@@ -1,2 +1,4 @@
 *.swp
 *.pyc
+conf.php
+conf.py
