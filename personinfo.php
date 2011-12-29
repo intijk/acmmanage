@@ -36,6 +36,7 @@ if($_SESSION['islab_vip']==1 or $_SESSION['islab_root']==1 or $_SESSION['islab']
 	echo "<tr><td>邮箱</td><td>" . $row['mail'] . "</td></tr>";
 	echo "<tr><td>手机</td><td>" . $row['mobilephone'] . "</td></tr>";
 	echo "<tr><td>QQ</td><td>" . $row['im'] . "</td></tr>";
+	echo "<tr><td>昵称</td><td>" . $row['nickname'] . "</td></tr>";
 	echo "<tr><td></td><td></td></tr>";
 
 	$sql="select ojType,ojID from userIDOnOJ where username='$user' order by ojType asc;";

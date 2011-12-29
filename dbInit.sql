@@ -16,6 +16,7 @@ CREATE TABLE `personinfo` (
   `mail` char(30) default NULL,
   `mobilephone` char(20) default NULL,
   `im` char(30) default NULL,
+  `nickname` varchar(100) default NULL,
   PRIMARY KEY  (`username`)
 );
 

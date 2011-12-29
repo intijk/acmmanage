@@ -152,6 +152,14 @@ if(isset($_REQUEST['im'])){
 	$updateinfo="修改成功";
 }
 
+if(isset($_REQUEST['nickname'])){
+	$nickname=$_REQUEST['nickname'];
+	$q="update personinfo set nickname='" . $nickname . "' where username='" . $muser . "'";
+	mysql_query($q,$link) or die ('cannot update nickname in modifypersoninfo');
+	$updateinfo="修改成功";
+}
+
+
 
 #开始检测和更新oj的账户和密码
 $sql="select * from ojList where needOJID=True";
@@ -253,6 +261,7 @@ echo "<tr><td>学号</td><td><input type='text' name='StuNum' value='" . $row['S
 echo "<tr><td>邮箱</td><td><input type='text' name='mail' value='" . $row['mail'] . "'/></td></tr>";
 echo "<tr><td>手机</td><td><input type='text' name='mobilephone' value='" . $row['mobilephone'] . "'/></td></tr>";
 echo "<tr><td>QQ</td><td><input type='text' name='im' value='" . $row['im'] . "'/></td></tr>";
+echo "<tr><td>昵称</td><td><input type='text' name='nickname' value='" . $row['nickname'] . "'/></td></tr>";
 echo "<tr><td><font color='red'>$updateinfo</font></td><td><input type='submit' value='修改'/></td>";
 echo "</form>";
 echo "</table>";

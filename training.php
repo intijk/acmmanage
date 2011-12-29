@@ -141,6 +141,7 @@ echo <<<eot
 <table class="trainTable">
 <tr>
 	<td>Rank</td><td><a href="training.php?sortStyle=username">ID</a></td> 
+	<td>昵称</td>
 eot;
 foreach($ojList as $ojType){
 	if($ojType=='username'){
@@ -159,6 +160,12 @@ if($trainTable!=NULL){
 	foreach($trainTable as $u){
 		echo "<tr><td>" . $rank .  "</td>";
 		echo "<td>" . $u['username']['value'] .  "</td>";
+
+		$sql="select nickname from personinfo where username='" . $u['username']['value'] . "'";
+		$result=mysql_query($sql,$link) or die ("cannot query nickname in training");
+		$row=mysql_fetch_assoc($result);
+		echo "<td id='tdnickname'>" . $row['nickname'] . "</td>";
+
 		foreach($ojList as $ojType){
 			$score=$u[$ojType]['value'];
 			if($ojType=='tc' || $ojType=='cf'){
