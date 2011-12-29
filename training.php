@@ -52,6 +52,7 @@ if($groupInlist=0){
 $link=linkToDBAndSelectDB($db_name1);
 #如果是实验室用户第一次登录,则产生一条空的记录 /*
 
+
 if($_SESSION['islab']){
 	#以下检查training的完整性
 	$q="select * from RecentTrainingQuery where username='$euser'";
@@ -80,7 +81,7 @@ if($_SESSION['islab']){
 #2.将同类组的用户名信息导入到一个数组中.
 #3.数组按行打印
 #syn的更新利用综合刷新时的php脚本来控制
-$q="select * from RecentTrainingQuery group by username,ojType";
+$q="select * from RecentTrainingQuery group by username,ojType";#使用分组可以保证排序，当然，使用orderby 也可以
 $result=mysql_query($q,$link) or die('Cannot query RecentTrainingQuery when create table of trainging');
 
 $userNum=-1;
@@ -104,9 +105,11 @@ while($row=mysql_fetch_assoc($result)){
 		}
 	}
 	$ojType=$row['ojType'];
-	//echo $userNum . " " . $ojType . " " ;
-	//print_r($row);
-	//echo "<br/>";
+
+	#echo $userNum . " " . $ojType . " " ;
+	#print_r($row);
+	#echo "<br/>";
+
 	$trainTable[$userNum][$ojType]=$row;
 	$i++;
 }

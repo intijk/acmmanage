@@ -56,12 +56,13 @@ create table ojList(
 	ojWeight float
 );
 
+insert into ojList(ojName,ojDisplay,needOJID,manuallyInput,checkReg,retReg,title,maxQuerySize,minQueryTimeInterval,overTime,maxFailTimes,ojRemark,needOJPass,ojWeight) values('xdu','xdu',True,False,'','^[0-9]+$','西安电子科技大学 Online Judge',10,0,20,2,"存储的数据是在xdu做的题目数量",False,1);
 insert into ojList(ojName,ojDisplay,needOJID,manuallyInput,checkReg,retReg,title,maxQuerySize,minQueryTimeInterval,overTime,maxFailTimes,ojRemark,needOJPass,ojWeight) values('pku','pku',True,False,'','^[0-9]+$','北京大学 pku Online Judge',10,0,20,2,"存储的数据是在pku做的题目数量",False,1);
 insert into ojList(ojName,ojDisplay,needOJID,manuallyInput,checkReg,retReg,title,maxQuerySize,minQueryTimeInterval,overTime,maxFailTimes,ojRemark,needOJPass,ojWeight) values('zju','zju',True,False,'','^[0-9]+$','浙江大学 zju Online Judge',10,0,20,2,"存储的数据是在zju做的题目数量",False,1);
 insert into ojList(ojName,ojDisplay,needOJID,manuallyInput,checkReg,retReg,title,maxQuerySize,minQueryTimeInterval,overTime,maxFailTimes,ojRemark,needOJPass,ojWeight) values('hdu','hdu',True,False,'','^[0-9]+$','杭州电子科技大学 hdu Online Judge',10,0,20,2,"存储的数据是在hdu做的题目数量",False,1);
 insert into ojList(ojName,ojDisplay,needOJID,manuallyInput,checkReg,retReg,title,maxQuerySize,minQueryTimeInterval,overTime,maxFailTimes,ojRemark,needOJPass,ojWeight) values('tc','TopCoder',True,False,'','^[0-9]+$','TopCoder',10,0,20,2,"存储的数据是tc的rating*10000+场数",False,1/200000);
-insert into ojList(ojName,ojDisplay,needOJID,manuallyInput,checkReg,retReg,title,maxQuerySize,minQueryTimeInterval,overTime,maxFailTimes,ojRemark,needOJPass,ojWeight) values('cf','CodeForces',True,False,'','^[0-9]+$','CodeForces',10,0,60,2,"存储的数据是cf的rating*10000+场数",False,1/200000);
-insert into ojList(ojName,ojDisplay,needOJID,manuallyInput,checkReg,retReg,title,maxQuerySize,minQueryTimeInterval,overTime,maxFailTimes,ojRemark,needOJPass,ojWeight) values('usaco','Usaco',True,False,'^[1-6]\\.[1-7]$','[1-6][1-7]$','Usaco Training Gate Way',10,20,20,2,"存储的数据是usaco的章节乘以10",True,50);
+insert into ojList(ojName,ojDisplay,needOJID,manuallyInput,checkReg,retReg,title,maxQuerySize,minQueryTimeInterval,overTime,maxFailTimes,ojRemark,needOJPass,ojWeight) values('cf','CodeForces',True,False,'','^[0-9]+$','CodeForces',10,0,60,2,"存储的数据是cf的rating*10000+场数",False,1/100000);
+insert into ojList(ojName,ojDisplay,needOJID,manuallyInput,checkReg,retReg,title,maxQuerySize,minQueryTimeInterval,overTime,maxFailTimes,ojRemark,needOJPass,ojWeight) values('usaco','Usaco',True,False,'^[1-6]\\.[1-7]$','[1-6][1-7]$','Usaco Training Gate Way',10,20,20,2,"存储的数据是usaco的章节乘以10",True,1.59);
 insert into ojList(ojName,ojDisplay,needOJID,manuallyInput,checkReg,retReg,title,maxQuerySize,minQueryTimeInterval,overTime,maxFailTimes,ojRemark,needOJPass,ojWeight) values('syn','综合',False,False,'.*','.*','综合评分',0,0,0,0,"综合评分",False,0);
 
 #创建oj的用户ID绑定列表, 原则上是不允许用户在某个OJ拥有两个或多个ID的,但是后台数据库设计的时候要允许可能的扩展,所以在这里不限制用户ID的存取, 唯一性由应用程序来保证. 内容为四部分: 用户ID,oj类型, 用户在oj的ID,用户在oj的密码

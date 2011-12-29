@@ -10,25 +10,39 @@ function getURLPattern($Pat,$URL){
     }
     $fp=file_get_contents($URL);
     if($debug>1){
-        echo "你请求的页面的返回结果是" . $fp . "<br/>";
+	    echo "你请求的页面的返回结果是" . $fp . "<br/>";
     }
     $c=preg_match($Pat,$fp,$out);
-	if($c==0){
-		$out[0]="noResFound";
-	}
-	return $out;
-}
-function getpkudata($userID){
-    global $debug;
-    $P="/(result.*user_id=$userID>)(.*)(<\/a>)/i";
-    $res=getURLPattern($P,"http://poj.org/userstatus?user_id=$userID");
-    if($debug>0){
-        print_r($res[0]);
+    if($c==0){
+	    $out[0]="noResFound";
     }
+    return $out;
+}
+function getxdudata($userID){
+	global $debug;
+	$P="/Solved\:.*?<td>([0-9]+)<\/td>/is";
+	if($userID=='anonymous'){
+		$link="http://acm.xidian.edu.cn/land/user/detail?user_id=645";
+	}else{
+		$link="http://acm.xidian.edu.cn/land/user/detail?username=" . $userID;
+	}
+	$res=getURLPattern($P,$link);
 	if($res[0]=='noResFound'){
 		return -1;
 	}
-    return $res[2];
+	return $res[1];
+}
+function getpkudata($userID){
+	global $debug;
+	$P="/(result.*user_id=$userID>)(.*)(<\/a>)/i";
+	$res=getURLPattern($P,"http://poj.org/userstatus?user_id=$userID");
+	if($debug>0){
+		print_r($res[0]);
+	}
+	if($res[0]=='noResFound'){
+		return -1;
+	}
+	return $res[2];
 }
 function gethdudata($userID){
 	global $debug;

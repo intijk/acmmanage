@@ -34,13 +34,24 @@ if($epassword==md5($password)){
 	$_SESSION['islab']=0;
 	$_SESSION['islab_vip']=0;
 	$_SESSION['islab_root']=0;
+	#lab_root 和 lab可共存， lab_vip和lab 不可共存,lab_vip和lab_root可共存	
 	if(userAingroupB($euser,'lab_root')){
+		$_SESSION['loggedin']=1;
 		$_SESSION['islab_root']=1;
-	}else if(userAingroupB($euser,'lab_vip')){
+	}
+	if(userAingroupB($euser,'lab_vip')){
+		$_SESSION['loggedin']=1;
 		$_SESSION['islab_vip']=1;
-	}else if(userAingroupB($euser,'lab')){
+	}
+	if(userAingroupB($euser,'lab')){
+		$_SESSION['loggedin']=1;
 		$_SESSION['islab']=1;
-	}else{
+	}
+	if($_SESSION['islab_vip']==1 && $_SESSION['islab']==1){
+		#出现这种情况肯定是oj里的组管理没设好，所以解开冲突
+		$_SESSION['islab']=0;
+	}
+	if($_SESSION['loggedin']!=1){
 		$x=new frame();
 		echo <<<eot
 <div>
@@ -49,12 +60,7 @@ if($epassword==md5($password)){
 eot;
 		exit();
 	}
-	$_SESSION['loggedin']=1;
 	$_SESSION['euser']=$euser;
-	$_SESSION['iscamera']=0;
-	if(userAingroupB($euser,'lab_camera')){
-		$_SESSION['iscamera']=1;
-	}
 	$x=new frame();
 	echo <<<eot
 <div>
