@@ -17,7 +17,7 @@ exit();
 
 $muser='';
 
-
+$muser=$_SESSION['euser'];
 if(isset($_REQUEST['muser'])){
 	$muser=$_REQUEST['muser'];
 	if(userAingroupB($_SESSION['euser'],'lab_root')){
@@ -259,6 +259,7 @@ echo "<option value='13' $selectStatus[13]>生命科学技术学院</option>\n";
 echo "<option value='14' $selectStatus[14]>国际教育学院</option>\n";
 echo "</select>\n";
 echo "</tr>\n";
+echo "<input type='hidden' name='muser' value='$muser'>";
 echo "<tr><td>学号</td><td><input type='text' name='StuNum' value='" . $row['StuNum'] . "'/></td></tr>";
 echo "<tr><td>邮箱</td><td><input type='text' name='mail' value='" . $row['mail'] . "'/></td></tr>";
 echo "<tr><td>手机</td><td><input type='text' name='mobilephone' value='" . $row['mobilephone'] . "'/></td></tr>";
@@ -271,6 +272,7 @@ echo "</div>";
 #以下打印ojID的修改列表
 echo "<table>";
 echo "<form action='modifypersoninfo.php' method='post'>\n";
+echo "<input type='hidden' name='muser' value='$muser'>";
 echo "<tr><td>OJ名称</td><td>OJ 帐号</td><td>OJ密码</td></tr>";
 mysql_data_seek($ojList, 0);
 #数据可能发生不一一致,导致一个用户多个ID的情况，这里首先取出用户的所有ID，然后只取第一个使用
