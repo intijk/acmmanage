@@ -15,7 +15,7 @@ exit();
 //首先，检验组，lab_vip这个组用来给相关的老师设计，他们不需要填写任何信息,root也属于这个组，但是root可以修改人员相关的信息，而lab_vip则不可以(依情况而定);
 //这里采用传参数的形式，如果非root用户，则
 
-
+$muser='';
 
 
 if(isset($_REQUEST['muser'])){
@@ -164,7 +164,8 @@ while($oj=mysql_fetch_assoc($ojList)){
 	#1. 取出历史信息
 	#2. 检测账户对应的oj对应的id项是否存在。 $idOnOJExists
 	#3. 根据是否存在决定如何插值，即使没有相关项，如密码，也要进行插值（空串）。
-	$needUpdate=False;
+	$needUpdateID=False;
+	$needUpdatePass=False;
 	$needUpdateTask=False;
 
 	#如果不存在或账户改变或密码改变，都进行相应的更新
@@ -182,17 +183,19 @@ while($oj=mysql_fetch_assoc($ojList)){
 		if($idCount>0){
 			$idOnOJExists=True;
 			$idCountRow=mysql_fetch_assoc($idCountArray);
-			if($idCountRow['ojID']!=$id || $idCountRow['ojPass']!=$pass){
+			if($idCountRow['ojID']!=$id){
 				#如果存在该ID，并且帐号或密码不同则需要更新
-				$needUpdate=True;
+				$needUpdateID=True;
 			}
-		}
+			if($pass!='' and $idCountRow['ojPass']!=$pass){
+				$needUpdatePass=True;
+			}
 		else{
 			#如果不存在该ID，则标记不存在
 			$idOnOJExists=false;
 		}
 		#如果发生了一个插入id或者id更新事件 ,则需要自动抓取一次数据
-		if($idOnOJExists==false or $needUpdate==True){
+		if($idOnOJExists==false or $needUpdateID==True or $needUpdatePass==True){
 			$needUpdateTask=True;
 		}
 		#如果该用户在该oj上的账户不存在,则插入一该id值
@@ -201,12 +204,18 @@ while($oj=mysql_fetch_assoc($ojList)){
 			mysql_query($sql,$link) or die('cannot insert new user id on oj') ;
 		}
 		#如果账户存在但是账户或密码修改了，需要更新
-		if($needUpdate){
+		if($needUpdateID){
 			$ojType=$oj['ojName'];
-			$sql="update userIDOnOJ set ojID='$id',ojPass='$pass' where username='$muser' and ojType='$ojType'";
+			$sql="update userIDOnOJ set ojID='$id' where username='$muser' and ojType='$ojType'";
+			mysql_query($sql,$link) or die('cannot update user id and password');
+		}
+		if($needUpdatePass){
+			$ojType=$oj['ojName'];
+			$sql="update userIDOnOJ set ojPass='$pass' where username='$muser' and ojType='$ojType'";
 			mysql_query($sql,$link) or die('cannot update user id and password');
 		}
 		#不论插入还是修改引起的，都抓取一次数据
+
 		if($needUpdateTask){
 			$sql="insert into updateTaskList(username,ojType,id,queryTime,status,failTimes) values('$muser','" . $oj['ojName'] . "','$id','" . date("Y-m-d H:i:s") ."',0,0)";
 			mysql_query($sql,$link) or die('cannot add query task');
@@ -279,7 +288,7 @@ while($r=mysql_fetch_assoc($ojList)){
 	echo "</td>";
 	echo "<td>";
 	if( $r['needOJPass'] ){
-		echo "<input type='text' name='" . $r['ojName'] . "Pass' value='" . $id['ojPass'] . "'/>";
+		echo "<input type='password' name='" . $r['ojName'] . "Pass' value=''/>";
 	}
 
 	echo "</td>";
