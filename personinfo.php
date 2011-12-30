@@ -39,7 +39,7 @@ if($_SESSION['islab_vip']==1 or $_SESSION['islab_root']==1 or $_SESSION['islab']
 	echo "<tr><td>昵称</td><td>" . $row['nickname'] . "</td></tr>";
 	echo "<tr><td></td><td></td></tr>";
 
-	$sql="select ojType,ojID from userIDOnOJ where username='$user' and needOJID=true order by ojType asc;
+	$sql="select ojType,ojID from userIDOnOJ,ojList where username='$user' and ojType=ojName  and needOJID=true";
 	$resQueryOJID=mysql_query($sql,$link) or die('cannot query user ID on OJ');
 	
 	while($ojID=mysql_fetch_assoc($resQueryOJID)){

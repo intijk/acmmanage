@@ -1,0 +1,7 @@
+1. 在modifypersoninfo.php 里增加一个项目
+2. 在personinfo.php 里增加处理该项目的代码段
+3. 在personinfo.php里增加一个项目
+
+4. 如果有必要，在training里增加该项目的显示
+  (1) 添加项目的表头项
+  (2) 添加项目的表体项

@@ -16,14 +16,7 @@ exit();
 //这里采用传参数的形式，如果非root用户，则
 
 
-if(!userAingroupB($_SESSION['euser'],'lab')){
-	echo <<<eot
-<div>
-	非实验室学生,无需修改信息.
-</div>
-eot;
-	exit;
-}
+
 
 if(isset($_REQUEST['muser'])){
 	$muser=$_REQUEST['muser'];

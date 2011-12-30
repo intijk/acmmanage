@@ -160,9 +160,9 @@ if($trainTable!=NULL){
 		echo "<tr><td>" . $rank .  "</td>";
 
 		if($_SESSION['islab_root']){	
-			echo "<td><a href=modifypersoninfo.php?muser='" . $u['username']['value'] .  "'>" . $u['username']['value'] . "</a></td>";
+			echo "<td><a href=modifypersoninfo.php?muser=" . $u['username']['value'] .  ">" . $u['username']['value'] . "</a></td>";
 		}elseif($_SESSION['islab_vip']){
-			echo "<td><a href=personinfo.php?user='" . $u['username']['value'] .  "'>" . $u['username']['value'] . "</a></td>";
+			echo "<td><a href=personinfo.php?user=" . $u['username']['value'] .  ">" . $u['username']['value'] . "</a></td>";
 		}else{
 			echo "<td>" . $u['username']['value'] .  "</td>";
 		}
