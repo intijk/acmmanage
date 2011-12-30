@@ -57,7 +57,7 @@ create table ojList(
 	ojWeight float
 );
 
-insert into ojList(ojName,ojDisplay,needOJID,manuallyInput,checkReg,retReg,title,maxQuerySize,minQueryTimeInterval,overTime,maxFailTimes,ojRemark,needOJPass,ojWeight) values('xdu','xdu',True,False,'','^[0-9]+$','西安电子科技大学 Online Judge',10,0,20,2,"存储的数据是在xdu做的题目数量",False,1);
+insert into ojList(ojName,ojDisplay,needOJID,manuallyInput,checkReg,retReg,title,maxQuerySize,minQueryTimeInterval,overTime,maxFailTimes,ojRemark,needOJPass,ojWeight) values('xdu','xdu',True,False,'','^[0-9]+$','西安电子科技大学 Online Judge',10,0,20,2,"存储的数据是在xdu做的题目数量",False,1.2);
 insert into ojList(ojName,ojDisplay,needOJID,manuallyInput,checkReg,retReg,title,maxQuerySize,minQueryTimeInterval,overTime,maxFailTimes,ojRemark,needOJPass,ojWeight) values('pku','pku',True,False,'','^[0-9]+$','北京大学 pku Online Judge',10,0,20,2,"存储的数据是在pku做的题目数量",False,1);
 insert into ojList(ojName,ojDisplay,needOJID,manuallyInput,checkReg,retReg,title,maxQuerySize,minQueryTimeInterval,overTime,maxFailTimes,ojRemark,needOJPass,ojWeight) values('zju','zju',True,False,'','^[0-9]+$','浙江大学 zju Online Judge',10,0,20,2,"存储的数据是在zju做的题目数量",False,1);
 insert into ojList(ojName,ojDisplay,needOJID,manuallyInput,checkReg,retReg,title,maxQuerySize,minQueryTimeInterval,overTime,maxFailTimes,ojRemark,needOJPass,ojWeight) values('hdu','hdu',True,False,'','^[0-9]+$','杭州电子科技大学 hdu Online Judge',10,0,20,2,"存储的数据是在hdu做的题目数量",False,1);

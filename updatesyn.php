@@ -13,6 +13,7 @@ $link=linkToDBandSelectDB($db_name1);
 $sql="select * from personinfo where username='$username'";
 $result=mysql_query($sql,$link) or die("cannot query personinfo in updatesyn");
 $nr=mysql_num_rows($result);
+$oldValue=0;
 if($nr<=0){
 	echo "用户 $username 不存在";
 	return -1;
@@ -25,12 +26,40 @@ else{
 		$sql="select ojWeight from ojList where ojName='" . $row['ojType']  . "'";
 		$result1=mysql_query($sql,$link) or die("cannot query ojWeight in updatesyn");
 		$row1=mysql_fetch_assoc($result1);
-		$synValue+=((float)($row1['ojWeight'])*(float)($row['value']));
+		$value=(float)($row['value']);
+		$ojName=$row['ojType'];
+		$ojWeight=$row1['ojWeight'];
+
+		$thisValue=(float)(0);	
+		if($ojName=='cf'){
+			$thisValue=pow(($value/10000)/1500,6.3)*($value%10000)*2;
+		
+		}elseif($ojName=='tc'){
+			$thisValue=pow(($value/10000)/1100,5)*($value%10000)*3;
+		}elseif($ojName=='usaco'){
+			$C=(int)($value/10);
+			$S=(int)($value%10);
+			$thisValue=($C-1)*4*4+($S-1)*4;
+			if($thisValue<0)$thisValue=0;
+		}elseif($ojName=='syn'){
+			$oldValue=$value;
+			$thisValue=0;
+		}else{
+			$thisValue=(float)($ojWeight*(float)($value));
+		}
+		echo $ojName . " " . $thisValue . "\n";
+		$synValue+=$thisValue;
 	}
 	$synValue=((int)($synValue));
 	$timeString=date("Y-m-d H:i:s");
-	$sql="insert into training(username,ojType,time,queryID,value) values('$username','syn','$timeString','$username',$synValue)";
-	$result=mysql_query($sql,$link) or die("cannot insert syn update");;
+	echo "oldValue " . $oldValue;
+	echo "\n";
+	echo "newValue " . $synValue;
+	echo "\n";
+	if($oldValue!=$synValue){
+		$sql="insert into training(username,ojType,time,queryID,value) values('$username','syn','$timeString','$username',$synValue)";
+		$result=mysql_query($sql,$link) or die("cannot insert syn update");;
+	}
 	echo "$username synValue=$synValue $timeString 已经更新\n";
 }
 ?>

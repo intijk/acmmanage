@@ -9,7 +9,7 @@ if(!$_SESSION['loggedin']){
 	未登录，无法修改信息。
 </div>
 eot;
-exit();
+	exit();
 }
 //打印一张表格，最上面是用户ID，往下依次是真名，年级，院系，学号，邮箱，手机号码，qq号码等信息
 //首先，检验组，lab_vip这个组用来给相关的老师设计，他们不需要填写任何信息,root也属于这个组，但是root可以修改人员相关的信息，而lab_vip则不可以(依情况而定);
@@ -17,7 +17,7 @@ exit();
 
 $muser='';
 
-
+$muser=$_SESSION['euser'];
 if(isset($_REQUEST['muser'])){
 	$muser=$_REQUEST['muser'];
 	if(userAingroupB($_SESSION['euser'],'lab_root')){
@@ -30,7 +30,7 @@ $muser 非本实验室用户。
 eot;
 			exit;
 		}
-	#修改人不是root,但在尝试修改它人信息
+		#修改人不是root,但在尝试修改它人信息
 	}else if($muser!=$_SESSION['euser']){
 		//非管理用户欲修改它人信息
 		echo<<<eot
@@ -169,7 +169,7 @@ while($oj=mysql_fetch_assoc($ojList)){
 	$needUpdateTask=False;
 
 	#如果不存在或账户改变或密码改变，都进行相应的更新
-	
+	#
 	#0. 是否有此oj的更新信息
 	if(isset($_POST[$oj['ojName'] . 'ID'])){
 		#1. 取出历史信息
@@ -177,7 +177,7 @@ while($oj=mysql_fetch_assoc($ojList)){
 		$pass=$_POST[$oj['ojName'] . 'Pass'];#同上，取出密码
 		$sql="select ojID from userIDOnOJ where ojType='" . $oj['ojName'] . "' and username='$muser'";
 		$idCountArray=mysql_query($sql,$link) or die('cannot query user id on oj');
-	
+
 		$idCount=mysql_num_rows($idCountArray);
 		#2. 检测是否已经存在id项
 		if($idCount>0){
@@ -190,6 +190,7 @@ while($oj=mysql_fetch_assoc($ojList)){
 			if($pass!='' and $idCountRow['ojPass']!=$pass){
 				$needUpdatePass=True;
 			}
+		}
 		else{
 			#如果不存在该ID，则标记不存在
 			$idOnOJExists=false;
@@ -259,6 +260,7 @@ echo "<option value='13' $selectStatus[13]>生命科学技术学院</option>\n";
 echo "<option value='14' $selectStatus[14]>国际教育学院</option>\n";
 echo "</select>\n";
 echo "</tr>\n";
+echo "<input type='hidden' name='muser' value='$muser'>";
 echo "<tr><td>学号</td><td><input type='text' name='StuNum' value='" . $row['StuNum'] . "'/></td></tr>";
 echo "<tr><td>邮箱</td><td><input type='text' name='mail' value='" . $row['mail'] . "'/></td></tr>";
 echo "<tr><td>手机</td><td><input type='text' name='mobilephone' value='" . $row['mobilephone'] . "'/></td></tr>";
@@ -271,6 +273,7 @@ echo "</div>";
 #以下打印ojID的修改列表
 echo "<table>";
 echo "<form action='modifypersoninfo.php' method='post'>\n";
+echo "<input type='hidden' name='muser' value='$muser'>";
 echo "<tr><td>OJ名称</td><td>OJ 帐号</td><td>OJ密码</td></tr>";
 mysql_data_seek($ojList, 0);
 #数据可能发生不一一致,导致一个用户多个ID的情况，这里首先取出用户的所有ID，然后只取第一个使用

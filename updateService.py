@@ -21,7 +21,7 @@ sys.stderr=logFile
 conn=MySQLdb.connect(host=conf.dbHost,user=conf.dbUser,passwd=conf.dbPasswd,db=conf.dbName)
 cursor=conn.cursor(MySQLdb.cursors.DictCursor)
 #引入oj列表的初始化
-cursor.execute("select * from ojList where manuallyInput=False")
+cursor.execute("select * from ojList where needOJID=True")
 ojList=cursor.fetchall()
 queryList={'empty':'empty'}
 del(queryList['empty'])
@@ -136,6 +136,9 @@ while True:
 					firstTask['doneTime']=time.strftime('%Y-%m-%d %H:%M:%S');
 					cursor.execute("update updateTaskList set doneTime='" + str(firstTask['doneTime']) + "',status=" + str(firstTask['status']) + " where ojType='" + str(firstTask['ojType']) + "' and id='" + str(firstTask['id']) + "' and queryTime='" + str(firstTask['queryTime']) + "' and username='" + str(firstTask['username']) + "'")
 					oj['size']=oj['size']-1
+
+					#用户可能是把原来已有的记录清空，所以更新一下syn值
+					subprocess.Popen(["./updatesyn.php",firstTask['username']],stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=False)
 				#如果提供的用户名不为空,则开辟进程并且更新数据库中的状态.
 				else:
 					#if 当前时间大于此oj最近查询时间+最短时间间隔 , 即刷新过快 
