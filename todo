@@ -1,15 +1,6 @@
-=== python2.7 +  mysql5.0  +  mysql-python 1.2.3 好用
-=== 调整usaco的权值===
-=== 测一测各oj的抓取间隔，usaco太短的话第二次一般失败
+=== 修正删除所有帐号之后不更新syn的bug
 === 增加一个寒假USACO比拼页面！
-=== 排行增加一个昵称栏
-=== 在training.php 里添加每个人的链接
-=== 加入xdu的抓取功能
-	添加xdu的时候，要从几个方面入手:
-		1. 添加数据库中ojList 里xdu的数据
-		2. 修改training表格的查和显
-
+=== 测一测各oj的抓取间隔，usaco太短的话第二次一般失败
 === 添加打分功能
 === 增加分组显示成员的功能
-=== 修改.htaccess使得用户不能访问updateAllTraining.php grabOJData.php updateService.py
 

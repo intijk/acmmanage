@@ -25,7 +25,27 @@ else{
 		$sql="select ojWeight from ojList where ojName='" . $row['ojType']  . "'";
 		$result1=mysql_query($sql,$link) or die("cannot query ojWeight in updatesyn");
 		$row1=mysql_fetch_assoc($result1);
-		$synValue+=((float)($row1['ojWeight'])*(float)($row['value']));
+		$value=(float)($row['value']);
+		$ojName=$row['ojType'];
+		$ojWeight=$row1['ojWeight'];
+
+		$thisValue=(float)(0);	
+		if($ojName=='cf'){
+			$thisValue=pow(($value/10000)/1500,6.3)*($value%10000)*2;
+		
+		}elseif($ojName=='tc'){
+			$thisValue=pow(($value/10000)/1100,5)*($value%10000)*3;
+		}elseif($ojName=='usaco'){
+			$C=(int)($value/10);
+			$S=(int)($value%10);
+			$thisValue=($C-1)*4*4+($S-1)*4;
+		}elseif($ojName=='syn'){
+			$thisValue=0;
+		}else{
+			$thisValue=(float)($ojWeight*(float)($value));
+		}
+		echo $ojName . " " . $thisValue . "\n";
+		$synValue+=$thisValue;
 	}
 	$synValue=((int)($synValue));
 	$timeString=date("Y-m-d H:i:s");

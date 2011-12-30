@@ -6,7 +6,7 @@ require_once("f.php");
 $link=linkToDBandselectDB($db_name1);
 $sql="select username from personinfo";
 $res=mysql_query($sql,$link)or die('cannot query personinfo');
-$sql="select ojName from ojList where manuallyInput=False";
+$sql="select ojName from ojList where needOJID=True";
 $ojList=mysql_query($sql,$link) or die('cannot query ojList');
 while($r=mysql_fetch_assoc($res)){
 	$muser=$r['username'];
@@ -14,7 +14,7 @@ while($r=mysql_fetch_assoc($res)){
 	mysql_data_seek($ojList,0);
 	while($oj=mysql_fetch_assoc($ojList)){
 		$sql="select ojID from userIDOnOJ where username='$muser' and ojType='" . $oj['ojName'] . "'";
-		echo $sql . "\n";
+	#	echo $sql . "\n";
 		$ids=mysql_query($sql,$link) or die('cannot query user id on oj');
 		if(mysql_num_rows($ids)>=1){
 			$id=mysql_fetch_assoc($ids);
