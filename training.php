@@ -106,7 +106,7 @@ while($row=mysql_fetch_assoc($result)){
 	}
 	$ojType=$row['ojType'];
 
-	#echo $userNum . " " . $ojType . " " ;
+	#echo $use昵称rNum . " " . $ojType . " " ;
 	#print_r($row);
 	#echo "<br/>";
 
@@ -153,13 +153,19 @@ foreach($ojList as $ojType){
 }
 echo "<td>$modyinfo</td></tr>";
 
-
 #打印表单
 $rank=1;
 if($trainTable!=NULL){
 	foreach($trainTable as $u){
 		echo "<tr><td>" . $rank .  "</td>";
-		echo "<td>" . $u['username']['value'] .  "</td>";
+
+		if($_SESSION['islab_root']){	
+			echo "<td><a href=modifypersoninfo.php?muser='" . $u['username']['value'] .  "'>" . $u['username']['value'] . "</a></td>";
+		}elseif($_SESSION['islab_vip']){
+			echo "<td><a href=personinfo.php?user='" . $u['username']['value'] .  "'>" . $u['username']['value'] . "</a></td>";
+		}else{
+			echo "<td>" . $u['username']['value'] .  "</td>";
+		}
 
 		$sql="select nickname from personinfo where username='" . $u['username']['value'] . "'";
 		$result=mysql_query($sql,$link) or die ("cannot query nickname in training");
