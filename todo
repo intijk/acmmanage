@@ -1,14 +1,14 @@
 === python2.7 +  mysql5.0  +  mysql-python 1.2.3 好用
-=== 修改某些失效的OJ抓取
-	添加xdu的时候，要从几个方面入手:
-		1. 添加数据库中ojList 里xdu的数据
-		2. 修改training表格的查和显
+=== 调整usaco的权值===
 === 测一测各oj的抓取间隔，usaco太短的话第二次一般失败
-=== 加入自动触发修改syn的功能
 === 增加一个寒假USACO比拼页面！
 === 排行增加一个昵称栏
 === 在training.php 里添加每个人的链接
 === 加入xdu的抓取功能
+	添加xdu的时候，要从几个方面入手:
+		1. 添加数据库中ojList 里xdu的数据
+		2. 修改training表格的查和显
+
 === 添加打分功能
 === 增加分组显示成员的功能
 === 修改.htaccess使得用户不能访问updateAllTraining.php grabOJData.php updateService.py
