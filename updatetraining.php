@@ -39,7 +39,7 @@ eot;
 	exit;
 }
 $link=linkToDBandSelectDB($db_name1);
-$sql="select ojName from ojList where manuallyInput=False";
+$sql="select ojName from ojList where needOJID=True";
 $ojList=mysql_query($sql,$link) or die('cannot query ojList');
 while($oj=mysql_fetch_assoc($ojList)){
 	$sql="select ojID from userIDOnOJ where username='$muser' and ojType='" . $oj['ojName'] . "'";

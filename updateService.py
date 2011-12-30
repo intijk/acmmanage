@@ -21,7 +21,7 @@ sys.stderr=logFile
 conn=MySQLdb.connect(host=conf.dbHost,user=conf.dbUser,passwd=conf.dbPasswd,db=conf.dbName)
 cursor=conn.cursor(MySQLdb.cursors.DictCursor)
 #引入oj列表的初始化
-cursor.execute("select * from ojList where manuallyInput=False")
+cursor.execute("select * from ojList where needOJID=True")
 ojList=cursor.fetchall()
 queryList={'empty':'empty'}
 del(queryList['empty'])
