@@ -14,8 +14,8 @@ if($_SESSION['loggedin']){
 	$nav0='<a href="login.php">' . "登录" . '</a>';
 }
 $nav1='<a href="training.php">' . "训练情况" . '</a>';
-$nav2='<a href="duty.php">' . "值日签到" . '</a>';
-$nav3='<a href="score.php">' . "历史成绩" . '</a>';
+$nav2='<a href="usaco.php">' . "USACO寒假大比拼！" . '</a>';
+$nav3='<a href="usaco.php">' . "USACO寒假大比拼！" . '</a>';
 $nav5='<a href="index.php">' . "主页" . '</a>';
 $nav6='<a href="modifypersoninfo.php">' . "设置" . '</a>';
 $nav7='<a href="labcamera.php">' . '实验室实时' . '</a>';
@@ -42,14 +42,14 @@ echo <<<eot
 eot;
 if($_SESSION['loggedin']==1){
 	if($_SESSION['islab']==1){
-echo "$nav5 | $nav0 | $nav1 | $nav6";
+echo "$nav5 | $nav0 | $nav1 | $nav6 | $nav3";
 	}else if($_SESSION['islab_vip']){
-echo "$nav5 | $nav0 | $nav1 ";
+echo "$nav5 | $nav0 | $nav1 | $nav3";
 	}else if($_SESSION['islab_root']){
-echo "$nav5 | $nav0 | $nav1 | $nav6";
+echo "$nav5 | $nav0 | $nav1 | $nav6 | $nav3";
 	}
 }else{
-	echo "$nav5 | $nav0 | $nav1";
+	echo "$nav5 | $nav0 | $nav1 | $nav3";
 }
 echo <<<eot
 		</div>

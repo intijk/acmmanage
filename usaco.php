@@ -6,10 +6,10 @@ require_once("f.php");
 	<meta charset='utf-8'/>
 <link rel="stylesheet" type="text/css" href="u.css"/>
 	<title>
-		西电ACM 寒假USACO刷题大比拼!
+		西电ACM 2012寒假USACO刷题大比拼!
 	</title>
 	<head>
-		<h1>寒假 <a href="http://ace.delos.com/usacogate"><img class="ver2" src="./usaco2.png"/></a> 刷题 <img class="ver1" src="./dabipin2.png"/></h1>
+		<h1>2012 寒假 <a href="http://ace.delos.com/usacogate"><img class="ver2" src="./usaco2.png"/></a> 刷题 <img class="ver1" src="./dabipin2.png"/></h1>
 	</head>
 	<body>
  	<h2>发送 XDU OJ 的 ID 到 acmxidian@gmail.com 开通，<a href="http://acm.xidian.edu.cn/acmmanage">填写 USACO 帐号</a>进入刷题榜！</h2><br/>
