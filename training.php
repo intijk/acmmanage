@@ -178,6 +178,9 @@ if($trainTable!=NULL){
 					$score=(String)( ((int)(($u[$ojType]['value']) /10000)) ) . '/' .  (String)((int)($u[$ojType]['value']))%1000;
 			}else if($ojType=='usaco'){
 					$score=(String)($u[$ojType]['value']/10);
+					if($score=='6.2'){
+						$score="通关！";
+					}
 			}
 			echo "<td title='$ojType 帐号: " . $u[$ojType]['queryID'] . " " .
 				"最后更新时间:" . $u[$ojType]['updateTime'] .
