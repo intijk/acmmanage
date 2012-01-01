@@ -177,7 +177,9 @@ if($trainTable!=NULL){
 			if($ojType=='tc' || $ojType=='cf'){
 					$score=(String)( ((int)(($u[$ojType]['value']) /10000)) ) . '/' .  (String)((int)($u[$ojType]['value']))%1000;
 			}else if($ojType=='usaco'){
-					$score=(String)($u[$ojType]['value']/10);
+					$chapter=(int)($u[$ojType]['value']/10);
+					$section=$u[$ojType]['value']%10;
+					$score= $chapter . "." . $section;
 					if($score=='6.2'){
 						$score="通关！";
 					}

@@ -7,6 +7,9 @@ function linkToDBandSelectDB($dbname){
 	if(!mysql_select_db($dbname,$link)){
 		die('Cannot select database in linkToDBandSelectDB');
 	}
+	if(!mysql_query('set names utf8')){
+		die('Cannot set encoding');
+	}
 	return $link;
 }
 function userAingroupB($A,$B){

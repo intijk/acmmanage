@@ -103,7 +103,7 @@ function getusacodata($userID,$userPass){
 	$submit_vars["NAME"]=$userID;
 	$submit_vars["PASSWORD"]=$userPass;
 	$snoopy->submit($submit_url,$submit_vars);
-	#echo $snoopy->results;
+	# $snoopy->results;
 	#通关特判
 	$P='/Congratulations!\s*You\s*have\s*finished\s*all\s*available\s*material/is';
 	$c=preg_match($P,$snoopy->results,$out0);
@@ -114,7 +114,7 @@ function getusacodata($userID,$userPass){
 	#未通关的抓取
 	$P='/(SECTION.*?(TODO|VIEWED))/is';
 	preg_match($P,$snoopy->results,$out1);
-	$P='/.*SECTION ([1-6]\.[1-7]).*?(TODO|VIEWED)/is';
+	$P='/.*SECTION ([1-6]\.[0-7]).*?(TODO|VIEWED)/is';
 	$c=preg_match($P,$out1[0],$out2);
 	$out=$out2[1];
 	if($debug>0){

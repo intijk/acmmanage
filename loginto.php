@@ -13,14 +13,7 @@ eot;
 }
 $user=$_REQUEST['user'];
 $password=$_REQUEST['password'];
-$link=mysql_connect($db_server,$db_user,$db_password);
-
-if(!$link){
-	die('Could not connet:' . mysql_error());
-}
-if(!mysql_select_db($db_name,$link)){
-	die('Could not find database');
-}
+$link=linkToDBandSelectDB($db_name);
 $sql="SELECT * FROM users WHERE username='$user'";
 $result=mysql_query($sql,$link) or die('cannot query when logging');
 if(!$result){
