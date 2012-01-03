@@ -1,0 +1,30 @@
+#!/usr/bin/python2
+#coding=utf-8
+import sys,os
+import MySQLdb,conf
+if len(sys.argv)<2:
+	print 'Usage: ' + sys.argv[0] + ' importFilename'
+	exit()
+print 'open file ' + sys.argv[1]
+#try:
+f=open(sys.argv[1])
+#finally:
+#	print 'openfile error!'
+#	exit()
+#try:
+#conn=MySQLdb.connect(host=conf.dbHost,user=conf.dbUser,passwd=conf.dbPasswd,db=conf.ojdbName)
+#conn1=MySQLdb.connect(host=conf.dbHost,user=conf.dbUser,passwd=conf.dbPasswd,db=conf.dbName)
+#cursor=conn.cursor(MySQLdb.cursors.DictCursor)
+#cursor1=conn1.cursor(MySQLdb.cursors.DictCursor)
+#finally:
+#	print 'open db file error'
+#	exit()
+while True:
+	line=f.readline();	
+	if len(line)==0:
+		break;
+	l=line.split()#l存储了用户的学号，姓名和性别
+	#cursor.execute("insert into users (username,password) values(" + ")");
+	#cursor1.execute("insert into users (username,password) values(" + ")");
+	print l
+print 'import successfully!'
